@@ -2,6 +2,7 @@
 using ECommerce.Base;
 using ECommerce.Data;
 using ECommerce.Data.Repository;
+using ECommerce.Domain;
 using ECommerce.Schema;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +12,12 @@ namespace ECommerce.Service.Controllers
     [ResponseGuid]
     [Route("simapi/v1/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private ICategoryRepository repository;
+        private IProductRepository repository;
         private IMapper mapper;
 
-        public CategoryController(ICategoryRepository repository, IMapper mapper)
+        public ProductController(IProductRepository repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
@@ -24,38 +25,30 @@ namespace ECommerce.Service.Controllers
 
         [HttpGet]
         [ResponseCache(Duration = 2000, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public List<CategoryResponse> GetAll()
+        public List<ProductResponse> GetAll()
         {
             var list = repository.GetAll();
-            var mapped = mapper.Map<List<CategoryResponse>>(list);
+            var mapped = mapper.Map<List<ProductResponse>>(list);
             return mapped;
         }
 
-        [HttpGet("{id}")]
-        [ResponseCache(CacheProfileName = ResponseCasheType.Minute45)]
-        public CategoryResponse GetById(int id)
-        {
-            var row = repository.GetById(id);
-            var mapped = mapper.Map<CategoryResponse>(row);
-            return mapped;
-        }
 
         [HttpPost]
-        public CategoryResponse Post([FromBody] CategoryRequest request)
+        public ProductResponse Post([FromBody] ProductRequest request)
         {
-            var entity = mapper.Map<Category>(request);
+            var entity = mapper.Map<Product>(request);
             repository.Insert(entity);
             repository.Complete();
 
-            var mapped = mapper.Map<Category, CategoryResponse>(entity);
+            var mapped = mapper.Map<Product, ProductResponse>(entity);
             return mapped;
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] CategoryRequest request)
+        public void Put(int id, [FromBody] ProductRequest request)
         {
             request.Id = id;
-            var entity = mapper.Map<Category>(request);
+            var entity = mapper.Map<Product>(request);
             repository.Update(entity);
             repository.Complete();
         }

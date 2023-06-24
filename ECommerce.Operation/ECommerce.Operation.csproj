@@ -10,4 +10,9 @@
     <Folder Include="Category\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerce.Schema\ECommerce.Schema.csproj" />
+    <ProjectReference Include="..\ECommerceApi\ECommerce.Base.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,8 @@
-﻿using ECommerce.Service.RestExtension;
+﻿using ECommerce.Base;
+using ECommerce.Data.Uow;
+using ECommerce.Service.RestExtension;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using SimApi.Base;
 
 
 namespace ECommerce.Service;
@@ -14,18 +15,33 @@ public class Startup
     }
 
     public IConfiguration Configuration { get; }
-    
+    public static JwtConfig JwtConfig { get; private set; }
+
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+
+        JwtConfig = Configuration.GetSection("JwtConfig").Get<JwtConfig>();
+        services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+
+        services.AddControllersWithViews(options =>
+        options.CacheProfiles.Add(ResponseCasheType.Minute45, new CacheProfile
+        {
+            Duration = 45 * 60,
+            NoStore = false,
+            Location = ResponseCacheLocation.Any
+        }));
 
         services.AddResponseCompression();
         services.AddMemoryCache();
         services.AddCustomSwaggerExtension();
         services.AddDbContextExtension(Configuration);
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddMapperExtension();
         services.AddRepositoryExtension();
         services.AddServiceExtension();
+        services.AddJwtExtension();
+        services.AddHangfireExtension(Configuration);
     }
 
 
@@ -45,7 +61,7 @@ public class Startup
             c.DocumentTitle = "SimApi Company";
         });
 
-        ////DI
+        //DI
         //app.AddExceptionHandler();
         //app.AddDIExtension();
         //app.UseHangfireDashboard();
