@@ -10,7 +10,9 @@ using System.Text;
 
 namespace ECommerce.Service.Controllers
 {
-    [Route("api/[controller]")]
+    [EnableMiddlewareLogger]
+    [ResponseGuid]
+    [Route("simapi/v1/[controller]")]
     [ApiController]
     public class TokenController : ControllerBase
     {

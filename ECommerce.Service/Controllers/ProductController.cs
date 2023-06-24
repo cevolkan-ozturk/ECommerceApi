@@ -4,6 +4,7 @@ using ECommerce.Data;
 using ECommerce.Data.Repository;
 using ECommerce.Domain;
 using ECommerce.Schema;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Service.Controllers
@@ -12,6 +13,7 @@ namespace ECommerce.Service.Controllers
     [ResponseGuid]
     [Route("simapi/v1/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private IProductRepository repository;
@@ -34,6 +36,7 @@ namespace ECommerce.Service.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ProductResponse Post([FromBody] ProductRequest request)
         {
             var entity = mapper.Map<Product>(request);
@@ -45,6 +48,7 @@ namespace ECommerce.Service.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public void Put(int id, [FromBody] ProductRequest request)
         {
             request.Id = id;
@@ -54,6 +58,7 @@ namespace ECommerce.Service.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public void Delete(int id)
         {
             repository.DeleteById(id);

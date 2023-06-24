@@ -30,7 +30,6 @@
     <Folder Include="Repository\ProductCategoryMap\" />
     <Folder Include="Repository\OrderDetail\" />
     <Folder Include="Repository\Product\" />
-    <Folder Include="Repository\Coupon\" />
   </ItemGroup>
 
 </Project>

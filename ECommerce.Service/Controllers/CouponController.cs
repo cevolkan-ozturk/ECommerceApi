@@ -13,12 +13,12 @@ namespace ECommerce.Service.Controllers
     [Route("simapi/v1/[controller]")]
     [ApiController]
     [Authorize]
-    public class CategoryController : ControllerBase
+    public class CouponController : ControllerBase
     {
-        private ICategoryRepository repository;
+        private ICouponRepository repository;
         private IMapper mapper;
 
-        public CategoryController(ICategoryRepository repository, IMapper mapper)
+        public CouponController(ICouponRepository repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
@@ -26,44 +26,44 @@ namespace ECommerce.Service.Controllers
 
         [HttpGet]
         [ResponseCache(Duration = 2000, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public List<CategoryResponse> GetAll()
+        public List<CouponResponse> GetAll()
         {
             var list = repository.GetAll();
-            var mapped = mapper.Map<List<CategoryResponse>>(list);
+            var mapped = mapper.Map<List<CouponResponse>>(list);
             return mapped;
         }
 
         [HttpGet("{id}")]
         [ResponseCache(CacheProfileName = ResponseCasheType.Minute45)]
-        public CategoryResponse GetById(int id)
+        public CouponResponse GetById(int id)
         {
             var row = repository.GetById(id);
-            var mapped = mapper.Map<CategoryResponse>(row);
+            var mapped = mapper.Map<CouponResponse>(row);
+            return mapped;
+        }
+
+        [HttpGet("user/{userId}")]
+        [ResponseCache(CacheProfileName = ResponseCasheType.Minute45)]
+        public List<CouponResponse> GetByUserId(int userId)
+        {
+            var row = repository.FindByUserId(userId);
+            var mapped = mapper.Map<List<CouponResponse>>(row);
             return mapped;
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public CategoryResponse Post([FromBody] CategoryRequest request)
+        public CouponResponse Post([FromBody] CouponRequest request)
         {
-            var entity = mapper.Map<Category>(request);
+            var entity = mapper.Map<Coupon>(request);
             repository.Insert(entity);
             repository.Complete();
 
-            var mapped = mapper.Map<Category, CategoryResponse>(entity);
+            var mapped = mapper.Map<Coupon, CouponResponse>(entity);
             return mapped;
         }
 
-        [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
-        public void Put(int id, [FromBody] CategoryRequest request)
-        {
-            request.Id = id;
-            var entity = mapper.Map<Category>(request);
-            repository.Update(entity);
-            repository.Complete();
-        }
-
+       
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public void Delete(int id)
