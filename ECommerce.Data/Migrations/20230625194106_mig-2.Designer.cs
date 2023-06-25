@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ECommerce.Data.Migrations
 {
     [DbContext(typeof(ECommerceEfDbContext))]
-    [Migration("20230624134906_mig1")]
-    partial class mig1
+    [Migration("20230625194106_mig-2")]
+    partial class mig2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -153,6 +153,9 @@ namespace ECommerce.Data.Migrations
                         .HasMaxLength(9)
                         .HasColumnType("integer");
 
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("PointAmount")
                         .HasColumnType("numeric");
 
@@ -258,8 +261,8 @@ namespace ECommerce.Data.Migrations
                     b.Property<decimal>("PointBalance")
                         .HasColumnType("numeric");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Properties")
                         .IsRequired()
@@ -323,7 +326,7 @@ namespace ECommerce.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductCategoryMaps");
+                    b.ToTable("ProductCategoryMap", "ECommerce");
                 });
 
             modelBuilder.Entity("ECommerce.Domain.User", b =>
@@ -340,10 +343,6 @@ namespace ECommerce.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
-
-                    b.Property<string>("DigitalWalletInfo")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()

@@ -22,8 +22,7 @@ namespace ECommerce.Domain
         public int Status { get; set; }
         public DateTime LastActivity { get; set; }
         public int PasswordRetryCount { get; set; }
-        public string DigitalWalletInfo { get; set; }
-
+        
         public decimal PointBalance { get; set; }
     }
 

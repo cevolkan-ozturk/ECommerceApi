@@ -17,7 +17,6 @@ namespace ECommerce.Domain
         public int UserId { get; set; }
         public string Description { get; set; }
         public string Address { get; set; }
-
         public decimal BasketAmount { get; set; }
 
         public decimal CouponAmount { get; set; }
@@ -25,6 +24,8 @@ namespace ECommerce.Domain
         public string CouponCode { get; set; }
 
         public decimal PointAmount { get; set; }
+
+        public int OrderStatus { get; set; }
 
         public List<OrderDetail> orderDetails { get; set; }
     }

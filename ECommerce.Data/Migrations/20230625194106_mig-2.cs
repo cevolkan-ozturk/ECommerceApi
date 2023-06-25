@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ECommerce.Data.Migrations
 {
-    public partial class mig1 : Migration
+    public partial class mig2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -66,7 +66,7 @@ namespace ECommerce.Data.Migrations
                     Url = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Tag = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Stock = table.Column<int>(type: "integer", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
                     Properties = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     IsActive = table.Column<int>(type: "integer", nullable: false),
@@ -84,7 +84,8 @@ namespace ECommerce.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductCategoryMaps",
+                name: "ProductCategoryMap",
+                schema: "ECommerce",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -98,7 +99,7 @@ namespace ECommerce.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductCategoryMaps", x => x.Id);
+                    table.PrimaryKey("PK_ProductCategoryMap", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,7 +118,6 @@ namespace ECommerce.Data.Migrations
                     Status = table.Column<int>(type: "integer", nullable: false),
                     LastActivity = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     PasswordRetryCount = table.Column<int>(type: "integer", nullable: false),
-                    DigitalWalletInfo = table.Column<string>(type: "text", nullable: false),
                     PointBalance = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
@@ -143,6 +143,7 @@ namespace ECommerce.Data.Migrations
                     CouponAmount = table.Column<decimal>(type: "numeric", nullable: false),
                     CouponCode = table.Column<string>(type: "text", nullable: false),
                     PointAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    OrderStatus = table.Column<int>(type: "integer", nullable: false),
                     OrderId = table.Column<int>(type: "integer", maxLength: 9, nullable: false),
                     ProductId = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -246,7 +247,8 @@ namespace ECommerce.Data.Migrations
                 schema: "ECommerce");
 
             migrationBuilder.DropTable(
-                name: "ProductCategoryMaps");
+                name: "ProductCategoryMap",
+                schema: "ECommerce");
 
             migrationBuilder.DropTable(
                 name: "User",

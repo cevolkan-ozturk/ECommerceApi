@@ -151,6 +151,9 @@ namespace ECommerce.Data.Migrations
                         .HasMaxLength(9)
                         .HasColumnType("integer");
 
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("PointAmount")
                         .HasColumnType("numeric");
 
@@ -256,8 +259,8 @@ namespace ECommerce.Data.Migrations
                     b.Property<decimal>("PointBalance")
                         .HasColumnType("numeric");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Properties")
                         .IsRequired()
@@ -321,7 +324,7 @@ namespace ECommerce.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductCategoryMaps");
+                    b.ToTable("ProductCategoryMap", "ECommerce");
                 });
 
             modelBuilder.Entity("ECommerce.Domain.User", b =>
@@ -338,10 +341,6 @@ namespace ECommerce.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
-
-                    b.Property<string>("DigitalWalletInfo")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()

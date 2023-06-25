@@ -17,11 +17,11 @@ public class MapperProfile : Profile
         CreateMap<User, UserResponse>();
         CreateMap<UserRequest, User>();
 
-        //CreateMap<Customer, CustomerResponse>();
-        //CreateMap<CustomerRequest, Customer>();
+        CreateMap<Order, OrderResponse>();
+        CreateMap<OrderRequest, Order>();
 
-        //CreateMap<Account, AccountResponse>();
-        //CreateMap<AccountRequest, Account>();
+        CreateMap<OrderDetail, OrderDetailResponse>();
+        CreateMap<OrderDetailRequest, OrderDetail>();
 
         //CreateMap<Transaction, TransactionResponse>();
         //CreateMap<TransactionView, TransactionViewResponse>();

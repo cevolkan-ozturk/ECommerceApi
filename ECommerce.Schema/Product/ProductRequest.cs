@@ -12,7 +12,7 @@ public class ProductRequest : BaseRequest
 
     public int Stock { get; set; }
 
-    public float Price { get; set; }
+    public decimal Price { get; set; }
 
     public string Properties { get; set; }
 

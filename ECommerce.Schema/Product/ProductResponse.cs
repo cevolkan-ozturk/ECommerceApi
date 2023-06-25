@@ -9,7 +9,7 @@ public class ProductResponse : BaseResponse
     public string Tag { get; set; }
     public int Stock { get; set; }
 
-    public float Price { get; set; }
+    public decimal Price { get; set; }
 
     public string Properties { get; set; }
 

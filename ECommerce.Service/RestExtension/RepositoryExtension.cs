@@ -10,5 +10,6 @@ public static class RepositoryExtension
         services.AddScoped<IProductRepository,ProductRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICouponRepository, CouponRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();    
     }
 }
